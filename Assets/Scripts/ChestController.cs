@@ -1,10 +1,15 @@
 using UnityEngine;
+using TMPro;
 
 public class ChestController : MonoBehaviour
 {
     Canvas UI;
     Animator Anim;
-    bool inArea;
+    private bool inArea;
+    bool shestOpen;
+
+    [SerializeField]
+    TMP_Text chestText;
 
     void Start()
     {
@@ -13,31 +18,39 @@ public class ChestController : MonoBehaviour
 
         UI.enabled = false;
         inArea = false;
-    }
-
-    void Update()
-    {
-        if (inArea == true)
-        {
-
-        }
+        shestOpen = false;
+        chestText.text = "Press E to open chest";
     }
 
     void OnTriggerEnter(Collider other)
     {
-        UI.enabled = true;
-        inArea = true;
+        if (shestOpen == false)
+        {
+            UI.enabled = true;
+            inArea = true;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        UI.enabled = false;
-        inArea = false;
+        if (shestOpen == false)
+        {
+            UI.enabled = false;
+            inArea = false;
+        }
     }
 
-    void OnInteract()
+    public void Press()
     {
-        
+        if (inArea == true && shestOpen == false)
+        {
+            shestOpen = true;
+            UI.enabled = false;
+            Anim.SetBool("IsOpende", true);
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            player.GetComponent<CameraControler>().Money += Random.Range(5, 31);
+        }
     }
-    
 }

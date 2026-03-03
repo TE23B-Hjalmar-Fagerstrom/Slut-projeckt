@@ -4,19 +4,16 @@ using TMPro;// UI
 
 public class CameraControler : MonoBehaviour
 {
-    int Money = 0;
+    public int Money = 0;
 
     Vector2 moveInput = Vector2.zero;
     Vector2 lookInput;
     float xRotation = 0;
-    Camera head;
 
     [SerializeField]
     float walkingSpeed = 1.4f;
-
     [SerializeField]
     float jumpForce = 10;
-
     [SerializeField]
     float gravityMult = 2f;
 
@@ -27,6 +24,7 @@ public class CameraControler : MonoBehaviour
     TMP_Text moneyText; // UI
 
     CharacterController controller;
+    Camera head;
 
     float velocityY = 0;
 
@@ -95,6 +93,16 @@ public class CameraControler : MonoBehaviour
         if (other.gameObject.tag == "Money")
         {
             Money += 15;
+        }
+    }
+
+    void OnInteract()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(head.transform.position, head.transform.forward, out hit, 5))
+        {
+            hit.transform.SendMessage("Press", SendMessageOptions.DontRequireReceiver);
         }
     }
 }
