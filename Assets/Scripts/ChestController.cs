@@ -24,7 +24,7 @@ public class ChestController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (shestOpen == false)
+        if (shestOpen == false && other.gameObject.tag == "Player")
         {
             UI.enabled = true;
             inArea = true;
@@ -33,7 +33,7 @@ public class ChestController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (shestOpen == false)
+        if (shestOpen == false && other.gameObject.tag == "Player")
         {
             UI.enabled = false;
             inArea = false;

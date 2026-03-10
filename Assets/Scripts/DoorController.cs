@@ -31,7 +31,7 @@ public class DoorController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (doorOpen == false)
+        if (doorOpen == false && other.gameObject.tag == "Player")
         {
             UI.enabled = true;
             inArea = true;
@@ -40,15 +40,18 @@ public class DoorController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (doorOpen == false)
+        if (doorOpen == false && other.gameObject.tag == "Player")
         {
             UI.enabled = false;
             inArea = false;
         }
+        if (other.gameObject.tag == "Player")
+        {
+            anim.SetBool("interactWithDoor?", false);
+            GetComponentInChildren<Collider>().enabled = true;
+            doorOpen = false;   
+        }
 
-        anim.SetBool("interactWithDoor?", false);
-        GetComponentInChildren<Collider>().enabled = true;
-        doorOpen = false;
     }
 
     public void Press()

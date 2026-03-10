@@ -105,4 +105,6 @@ public class CameraControler : MonoBehaviour
             hit.transform.SendMessage("Press", SendMessageOptions.DontRequireReceiver);
         }
     }
+
+    
 }
