@@ -4,7 +4,10 @@ using TMPro;// UI
 
 public class CameraControler : MonoBehaviour
 {
-    public int Money = 0;
+    public float Money = 0;
+    public int maxHP = 100;
+    public int HP;
+    public int Scrap = 0;
 
     Vector2 moveInput = Vector2.zero;
     Vector2 lookInput;
@@ -32,7 +35,7 @@ public class CameraControler : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         head = GetComponentInChildren<Camera>();
-        controller = GetComponent<CharacterController>();
+        controller = gameObject.GetComponent<CharacterController>();
     }
 
     void Update()

@@ -6,14 +6,16 @@ public class DoorController : MonoBehaviour
 {
     Canvas UI;
     Animator anim;
+    GameObject door;
+    ChestController chest;
     private bool inArea;
-    bool doorOpen;
-    bool bossDoor;
-    bool HPDoor;
-    bool moneyDoor;
-    bool scrapDoor;
-    bool shopDoor;
-    bool uppgradeDoor;
+    public bool doorOpen = false;
+    public bool bossDoor = false;
+    public bool HPDoor = false;
+    public bool moneyDoor = false;
+    public bool scrapDoor = false;
+    public bool shopDoor = false;
+    public bool uppgradeDoor = false;
 
     [SerializeField]
     TMP_Text doorText;
@@ -22,11 +24,38 @@ public class DoorController : MonoBehaviour
     {
         UI = GetComponentInChildren<Canvas>();
         anim = GetComponentInChildren<Animator>();
+        door = this.gameObject;
+        chest = gameObject.GetComponent<ChestController>();
 
         UI.enabled = false;
         inArea = false;
         doorOpen = false;
         doorText.text = "Press E to open door";
+
+        if (door.name == "BossDoor")
+        {
+            bossDoor = true;
+        }
+        else if (door.name == "MoneyDoor")
+        {
+            moneyDoor = true;
+        }
+        else if (door.name == "HPDoor")
+        {
+            HPDoor = true;
+        }
+        else if (door.name == "ShopDoor")
+        {
+            shopDoor = true;
+        }
+        else if (door.name == "ScrapDoor")
+        {
+            scrapDoor = true;
+        }
+        else if (door.name == "UppgradeDoor")
+        {
+            uppgradeDoor = true;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -49,7 +78,7 @@ public class DoorController : MonoBehaviour
         {
             anim.SetBool("interactWithDoor?", false);
             GetComponentInChildren<Collider>().enabled = true;
-            doorOpen = false;   
+            doorOpen = false;
         }
 
     }
@@ -62,6 +91,33 @@ public class DoorController : MonoBehaviour
             UI.enabled = false;
             anim.SetBool("interactWithDoor?", true);
             GetComponentInChildren<Collider>().enabled = false;
+
+            if (bossDoor == true)
+            {
+                chest.moneyMult = 2.5f;
+                chest.addScrap = Random.Range(10, 36);
+                print(chest.moneyMult);
+            }
+            else if (moneyDoor == true)
+            {
+                chest.moneyMult = 1.75f;
+            }
+            else if (HPDoor == true)
+            {
+                chest.addMaxHP = Random.Range(5, 16);
+            }
+            else if (shopDoor == true)
+            {
+                ;
+            }
+            else if (scrapDoor == true)
+            {
+                chest.addScrap = Random.Range(5, 21);;
+            }
+            else if (uppgradeDoor == true)
+            {
+                ;
+            }
         }
     }
 }

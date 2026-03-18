@@ -8,10 +8,17 @@ public class bulletController : MonoBehaviour
     void Start()
     {
         GetComponent<Rigidbody>().AddForce(transform.forward * 3000);
+        Destroy(this.gameObject, 2);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag != "Bullet")
+        {
+            Destroy(this.gameObject); 
+            print("HIT");
+        }
+
         if (other.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);

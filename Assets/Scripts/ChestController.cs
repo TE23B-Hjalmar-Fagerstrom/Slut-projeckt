@@ -7,6 +7,9 @@ public class ChestController : MonoBehaviour
     Animator Anim;
     private bool inArea;
     bool shestOpen;
+    public float moneyMult = 1;
+    public int addMaxHP;
+    public int addScrap;
 
     [SerializeField]
     TMP_Text chestText;
@@ -50,7 +53,22 @@ public class ChestController : MonoBehaviour
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            player.GetComponent<CameraControler>().Money += Random.Range(5, 31);
+            player.GetComponent<CameraControler>().Money += Random.Range(5 * moneyMult, 31 * moneyMult);
+            moneyMult = 1;
+
+            if (addMaxHP > 0)
+            {
+                player.GetComponent<CameraControler>().maxHP += addMaxHP;
+                addMaxHP = 0;
+                print("HP added");
+            }
+
+            if (addScrap > 0)
+            {
+                player.GetComponent<CameraControler>().Scrap += addScrap;
+                addScrap = 0;
+                print("Scrap added");
+            }
         }
     }
 }
