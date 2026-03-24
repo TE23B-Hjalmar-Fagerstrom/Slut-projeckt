@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;// UI
+using TMPro;
+using UnityEngine.UI;// UI
 
 public class CameraControler : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class CameraControler : MonoBehaviour
 
     [SerializeField]
     TMP_Text moneyText; // UI
+    [SerializeField]
+    TMP_Text scrapText; // UI
+    [SerializeField]
+    Slider HPSlider; // UI
 
     CharacterController controller;
     Camera head;
@@ -36,11 +41,14 @@ public class CameraControler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         head = GetComponentInChildren<Camera>();
         controller = gameObject.GetComponent<CharacterController>();
+        HPSlider.maxValue = maxHP;
+        HPSlider.value = HP;
     }
 
     void Update()
     {
         moneyText.text = $"{Money}"; // UI
+        scrapText.text = $"{Scrap}"; // UI
 
         // Gravity
         velocityY += Physics.gravity.y * gravityMult * Time.deltaTime;
@@ -52,11 +60,11 @@ public class CameraControler : MonoBehaviour
 
 
         // Movment
-        Vector3 movment = transform.forward * moveInput.y 
+        Vector3 movment = transform.forward * moveInput.y
         + transform.right * moveInput.x;
 
         movment *= walkingSpeed;
-        
+
         movment.y = velocityY;
 
         controller.Move(movment * Time.deltaTime);
@@ -83,6 +91,8 @@ public class CameraControler : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = jumpForce;
+            HP -= 10;
+            HPSlider.value = HP;
         }
     }
 
@@ -109,5 +119,5 @@ public class CameraControler : MonoBehaviour
         }
     }
 
-    
+
 }

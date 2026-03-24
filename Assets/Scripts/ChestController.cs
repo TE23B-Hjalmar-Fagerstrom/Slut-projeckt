@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Unity.Mathematics;
 
 public class ChestController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ChestController : MonoBehaviour
     private bool inArea;
     bool shestOpen;
     public float moneyMult = 1;
+    public float moneyAddition = 1;
     public int addMaxHP;
     public int addScrap;
 
@@ -53,9 +55,12 @@ public class ChestController : MonoBehaviour
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            player.GetComponent<CameraControler>().Money += Random.Range(5 * moneyMult, 31 * moneyMult);
+            float num = UnityEngine.Random.Range((5 + moneyAddition) * moneyMult, (31 + moneyAddition) * moneyMult);
+            player.GetComponent<CameraControler>().Money += math.round(num);
             moneyMult = 1;
+            moneyAddition = 1;
 
+            // här låg den hemsökta printen
             if (addMaxHP > 0)
             {
                 player.GetComponent<CameraControler>().maxHP += addMaxHP;

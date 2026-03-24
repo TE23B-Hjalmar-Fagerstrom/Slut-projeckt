@@ -7,7 +7,10 @@ public class DoorController : MonoBehaviour
     Canvas UI;
     Animator anim;
     GameObject door;
-    ChestController chest;
+
+    [SerializeField]
+    GameObject chest;
+    ChestController chestScript;
     private bool inArea;
     public bool doorOpen = false;
     public bool bossDoor = false;
@@ -25,7 +28,8 @@ public class DoorController : MonoBehaviour
         UI = GetComponentInChildren<Canvas>();
         anim = GetComponentInChildren<Animator>();
         door = this.gameObject;
-        chest = gameObject.GetComponent<ChestController>();
+        
+        chestScript = chest.GetComponent<ChestController>();
 
         UI.enabled = false;
         inArea = false;
@@ -94,17 +98,18 @@ public class DoorController : MonoBehaviour
 
             if (bossDoor == true)
             {
-                chest.moneyMult = 2.5f;
-                chest.addScrap = Random.Range(10, 36);
-                print(chest.moneyMult);
+                chestScript.moneyMult = 2.5f;
+                chestScript.moneyAddition = Random.Range(25, 46);
+                chestScript.addScrap = Random.Range(10, 36);
             }
             else if (moneyDoor == true)
             {
-                chest.moneyMult = 1.75f;
+                chestScript.moneyMult = 1.75f;
+                chestScript.moneyAddition = Random.Range(15, 26);
             }
             else if (HPDoor == true)
             {
-                chest.addMaxHP = Random.Range(5, 16);
+                chestScript.addMaxHP = Random.Range(5, 16);
             }
             else if (shopDoor == true)
             {
@@ -112,7 +117,7 @@ public class DoorController : MonoBehaviour
             }
             else if (scrapDoor == true)
             {
-                chest.addScrap = Random.Range(5, 21);;
+                chestScript.addScrap = Random.Range(5, 21);;
             }
             else if (uppgradeDoor == true)
             {
