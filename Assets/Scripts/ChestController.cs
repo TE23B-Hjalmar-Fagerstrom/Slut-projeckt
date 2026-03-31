@@ -64,15 +64,15 @@ public class ChestController : MonoBehaviour
             if (addMaxHP > 0)
             {
                 player.GetComponent<CameraControler>().maxHP += addMaxHP;
+                print($"HP added ({addMaxHP})");
                 addMaxHP = 0;
-                print("HP added");
             }
 
             if (addScrap > 0)
             {
                 player.GetComponent<CameraControler>().Scrap += addScrap;
+                print($"Scrap added ({addScrap})");
                 addScrap = 0;
-                print("Scrap added");
             }
         }
     }

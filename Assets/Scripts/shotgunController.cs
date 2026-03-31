@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class shotgunController : MonoBehaviour
 {
@@ -10,19 +11,31 @@ public class shotgunController : MonoBehaviour
     float timeSinceShot = 0;
     float spread = 5;
 
+    [SerializeField]
+    int curentAmmo;
+    int maxAmmo = 6;
+
+    [SerializeField]
+    TMP_Text ammoText;
+
     Transform spawnPoint;
 
     int pelletCount = 120;
 
+    float timeBetweenReloads = 1;
+    float timeSinceLastReload = 0;
+
+    bool isReloading = false;
+
     void Start()
     {
         spawnPoint = transform.GetChild(0).transform;
+        curentAmmo = maxAmmo;
     }
 
     public void Fire()
     {
-
-        if (timeSinceShot > timeBetweenShots)
+        if (timeSinceShot > timeBetweenShots && curentAmmo > 0)
         {
             for (int i = 0; i < pelletCount; i++)
             {
@@ -30,15 +43,44 @@ public class shotgunController : MonoBehaviour
                 float y = Random.Range(-spread, spread);
 
                 Quaternion direction = Quaternion.Euler(x, y, 0);
-            
+
                 Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.rotation * direction);
             }
+
+            curentAmmo--;
+            isReloading = false;
+
             timeSinceShot = 0;
+        }
+        else if (curentAmmo == 0)
+        {
+            isReloading = true;
+        }
+    }
+
+    public void Reload()
+    {
+        if (curentAmmo < maxAmmo)
+        {
+            isReloading = true;
         }
     }
 
     void Update()
     {
         timeSinceShot += Time.deltaTime;
+
+        ammoText.text = $"{curentAmmo} / 6";
+
+        if (isReloading && curentAmmo < maxAmmo)
+        {
+            timeSinceLastReload += Time.deltaTime;
+            if (timeSinceLastReload > timeBetweenReloads)
+            {
+                timeSinceLastReload = 0;
+                curentAmmo++;
+                if (curentAmmo == maxAmmo) isReloading = false;
+            }
+        }
     }
 }

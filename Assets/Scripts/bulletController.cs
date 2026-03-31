@@ -16,7 +16,7 @@ public class bulletController : MonoBehaviour
         if (other.gameObject.tag != "Bullet")
         {
             Destroy(this.gameObject); 
-            print("HIT");
+            print("HIT triger");
         }
 
         if (other.gameObject.tag == "Enemy")
@@ -30,7 +30,7 @@ public class bulletController : MonoBehaviour
         if (collision.gameObject.tag != "Bullet")
         {
             Destroy(this.gameObject); 
-            print("HIT");
+            print("HIT wall");
         }
     }
 }
