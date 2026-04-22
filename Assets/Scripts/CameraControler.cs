@@ -20,6 +20,7 @@ public class CameraControler : MonoBehaviour
     float jumpForce = 10;
     [SerializeField]
     float gravityMult = 2f;
+    public bool isMoving;
 
     [SerializeField]
     Vector2 sensitivity = Vector2.one;
@@ -68,6 +69,15 @@ public class CameraControler : MonoBehaviour
         movment.y = velocityY;
 
         controller.Move(movment * Time.deltaTime);
+
+        if (movment.x != Vector3.zero.x)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
 
 
         // Looking
@@ -118,6 +128,4 @@ public class CameraControler : MonoBehaviour
             hit.transform.SendMessage("Press", SendMessageOptions.DontRequireReceiver);
         }
     }
-
-
 }

@@ -19,22 +19,10 @@ public class legendController : MonoBehaviour
     {
         isClosed = !isClosed;
         legend.enabled = isClosed;
-        print(legend.enabled);
     }
 
     void Update()
     {
-        // if (Input.GetKey(KeyCode.Tab) && isClosed == true)
-        // {
-        //     isClosed = false;
-        // }
-
-        // if (Input.GetKey(KeyCode.Tab) && isClosed == false)
-        // {
-        //     isClosed = true;
-        // }
-
-
         if (isClosed == false)
         {
             legend.enabled = true;

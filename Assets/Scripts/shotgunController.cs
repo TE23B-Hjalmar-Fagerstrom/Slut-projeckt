@@ -9,10 +9,12 @@ public class shotgunController : MonoBehaviour
     [SerializeField]
     float timeBetweenShots = 1;
     float timeSinceShot = 0;
+    float timeBetweenHasFired = 1;
+    float timeSinceHasFired = 0;
     float spread = 5;
 
     [SerializeField]
-    int curentAmmo;
+    public int curentAmmo;
     int maxAmmo = 6;
 
     [SerializeField]
@@ -25,7 +27,9 @@ public class shotgunController : MonoBehaviour
     float timeBetweenReloads = 1;
     float timeSinceLastReload = 0;
 
-    bool isReloading = false;
+    public bool isReloading = false;
+    public bool fireGun = false;
+    public bool hasFired = false;
 
     void Start()
     {
@@ -37,6 +41,7 @@ public class shotgunController : MonoBehaviour
     {
         if (timeSinceShot > timeBetweenShots && curentAmmo > 0)
         {
+            fireGun = true;
             for (int i = 0; i < pelletCount; i++)
             {
                 float x = Random.Range(-spread, spread);
@@ -48,14 +53,19 @@ public class shotgunController : MonoBehaviour
             }
 
             curentAmmo--;
+
             isReloading = false;
+            fireGun = false;
+            hasFired = true;
 
             timeSinceShot = 0;
+            timeSinceHasFired = 0;
         }
         else if (curentAmmo == 0)
         {
             isReloading = true;
         }
+
     }
 
     public void Reload()
@@ -69,6 +79,7 @@ public class shotgunController : MonoBehaviour
     void Update()
     {
         timeSinceShot += Time.deltaTime;
+        timeSinceHasFired += Time.deltaTime;
 
         ammoText.text = $"{curentAmmo} / 6";
 
@@ -81,6 +92,11 @@ public class shotgunController : MonoBehaviour
                 curentAmmo++;
                 if (curentAmmo == maxAmmo) isReloading = false;
             }
+        }
+
+        if (timeSinceHasFired > timeBetweenHasFired)
+        {
+            hasFired = false;
         }
     }
 }

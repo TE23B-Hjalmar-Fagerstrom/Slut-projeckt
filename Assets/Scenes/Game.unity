@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 222788903}
   - component: {fileID: 222788902}
   m_Layer: 5
-  m_Name: left
+  m_Name: crosshair left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,6 +949,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &447341837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447341833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05dedc017d24074fba7fe5d4049b21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimController
+  player: {fileID: 671689065}
+  wepon: {fileID: 1866149395}
 --- !u!1 &504733336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,6 +1304,7 @@ MonoBehaviour:
   walkingSpeed: 4
   jumpForce: 7
   gravityMult: 2
+  isMoving: 0
   sensitivity: {x: 0.2, y: 0.2}
   moneyText: {fileID: 2059721105}
   scrapText: {fileID: 844614979}
@@ -1372,7 +1387,7 @@ GameObject:
   - component: {fileID: 732124650}
   - component: {fileID: 732124649}
   m_Layer: 5
-  m_Name: right
+  m_Name: crosshair right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,7 +1550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 45.789978, y: 24.440002}
+  m_AnchoredPosition: {x: 3.0999756, y: 24.440002}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &779443835
@@ -2653,7 +2668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 438b00a16b967fc47935a65de6135920, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.68003
+      value: -36.786
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 438b00a16b967fc47935a65de6135920, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2948,6 +2963,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1503456821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503456817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05dedc017d24074fba7fe5d4049b21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimController
+  player: {fileID: 671689065}
+  wepon: {fileID: 1866149395}
 --- !u!1 &1542894395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 438b00a16b967fc47935a65de6135920, type: 3}
@@ -3260,15 +3289,24 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1866149396}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1866149397}
     - targetCorrespondingSourceObject: {fileID: 5601663438132125525, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 51130542}
     - targetCorrespondingSourceObject: {fileID: 6857260575484751011, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 447341835}
+    - targetCorrespondingSourceObject: {fileID: 6857260575484751011, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 447341837}
     - targetCorrespondingSourceObject: {fileID: -7135621372911856578, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1503456819}
+    - targetCorrespondingSourceObject: {fileID: -7135621372911856578, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1503456821}
   m_SourcePrefab: {fileID: 100100000, guid: 690cea814964de5449ef36b1fd50d70f, type: 3}
 --- !u!4 &1866149393 stripped
 Transform:
@@ -3296,6 +3334,9 @@ MonoBehaviour:
   timeBetweenShots: 1
   curentAmmo: 0
   ammoText: {fileID: 779443835}
+  isReloading: 0
+  fireGun: 0
+  hasFired: 0
 --- !u!95 &1866149396
 Animator:
   serializedVersion: 7
@@ -3318,6 +3359,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1866149397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866149394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05dedc017d24074fba7fe5d4049b21c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  player: {fileID: 671689065}
+  wepon: {fileID: 1866149395}
 --- !u!1 &1923041885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3421,6 +3476,7 @@ RectTransform:
   - {fileID: 1230432533}
   - {fileID: 1272444772}
   - {fileID: 779443834}
+  - {fileID: 1927041252}
   - {fileID: 2128593371}
   - {fileID: 2097507974}
   - {fileID: 222788901}
@@ -3432,6 +3488,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1927041251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1927041252}
+  - component: {fileID: 1927041254}
+  - component: {fileID: 1927041253}
+  m_Layer: 5
+  m_Name: ammo img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1927041252
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927041251}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.22278, y: 1.0194198, z: 2.22278}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1923041889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 70.29602, y: -0.2999878}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 0}
+--- !u!114 &1927041253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927041251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 2100000, guid: 81988fe1c2966ca408525623045f0b88, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1927041254
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927041251}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1948637747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3781,7 +3912,7 @@ GameObject:
   - component: {fileID: 2097507976}
   - component: {fileID: 2097507975}
   m_Layer: 5
-  m_Name: bott
+  m_Name: crosshair bott
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3922,7 +4053,7 @@ GameObject:
   - component: {fileID: 2128593373}
   - component: {fileID: 2128593372}
   m_Layer: 5
-  m_Name: top
+  m_Name: crosshair top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
