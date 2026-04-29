@@ -22,9 +22,9 @@ public class shotgunController : MonoBehaviour
 
     Transform spawnPoint;
 
-    int pelletCount = 120;
+    int pelletCount = 12;
 
-    float timeBetweenReloads = 1;
+    float timeBetweenReloads = 0.75f;
     float timeSinceLastReload = 0;
 
     public bool isReloading = false;

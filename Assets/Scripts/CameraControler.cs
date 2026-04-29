@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;// UI
+using UnityEngine.SceneManagement;
 
 public class CameraControler : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CameraControler : MonoBehaviour
     float jumpForce = 10;
     [SerializeField]
     float gravityMult = 2f;
+    float velocityY = 0;
     public bool isMoving;
 
     [SerializeField]
@@ -35,7 +37,10 @@ public class CameraControler : MonoBehaviour
     CharacterController controller;
     Camera head;
 
-    float velocityY = 0;
+    bool isBeingAttacked = false;
+
+    float dmgInterval = 0.6f;
+    float timeSinceDmgTaken;
 
     void Start()
     {
@@ -70,7 +75,7 @@ public class CameraControler : MonoBehaviour
 
         controller.Move(movment * Time.deltaTime);
 
-        if (movment.x != Vector3.zero.x)
+        if (movment.x != Vector3.zero.x || movment.z != Vector3.zero.z)
         {
             isMoving = true;
         }
@@ -89,6 +94,31 @@ public class CameraControler : MonoBehaviour
         );
 
         transform.Rotate(Vector3.up, lookInput.x * sensitivity.x);
+
+
+        // Player taking dmg 
+        if (isBeingAttacked == true)
+        {
+            timeSinceDmgTaken += Time.deltaTime;
+
+            if (timeSinceDmgTaken > dmgInterval)
+            {
+                HP -= Random.Range(5, 16);
+                HPSlider.value = HP;
+
+                dmgInterval = 1.4f;
+                // dmgInterval -= 0.1f;
+                timeSinceDmgTaken = 0;
+
+                isBeingAttacked = false;
+            }
+        }
+
+        if (HP <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     void OnMove(InputValue value)
@@ -101,8 +131,6 @@ public class CameraControler : MonoBehaviour
         if (controller.isGrounded)
         {
             velocityY = jumpForce;
-            HP -= 10;
-            HPSlider.value = HP;
         }
     }
 
@@ -111,11 +139,26 @@ public class CameraControler : MonoBehaviour
         lookInput = value.Get<Vector2>();
     }
 
-    void OnTriggerEnter(UnityEngine.Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Money")
+        if (other.gameObject.tag == "Enemy")
         {
-            Money += 15;
+            isBeingAttacked = true;
+        }
+        else
+        {
+            isBeingAttacked = false;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            isBeingAttacked = false;
+
+            dmgInterval = 0.6f;
+            timeSinceDmgTaken = 0;
         }
     }
 
